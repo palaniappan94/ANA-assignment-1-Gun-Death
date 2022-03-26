@@ -1,0 +1,61 @@
+---
+title: "ANA 515 Assignment 1"
+author: "Palaniappan Perichiappan"
+date: '2022-03-25'
+output:
+  html_document: 
+    theme: 
+      bootswatch: cerulean
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r include=FALSE}
+#3 Installed packages Manually
+#4
+library(bslib)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+url <- "https://raw.githubusercontent.com/fivethirtyeight/guns-data/master/full_data.csv"
+eight <- read.csv(url)
+glimpse(eight)
+```
+
+
+
+```{r include=FALSE}
+#5
+filter(eight, age<=65)
+youth <- filter(eight, age<=65)
+
+```
+
+```{r include=FALSE}
+#6
+summary(youth)
+```
+
+#7
+
+We have data about `r nrow(eight)` individuals killed by guns. Only `r nrow(eight) - nrow(youth)` are older than 65
+
+
+#8 Gun Deaths by Age
+
+```{r youth-dist, echo=FALSE}
+youth %>%
+  ggplot(aes(age))+geom_freqpoly(binwidth = 1)
+```
+
+#9 Gun deaths by Race
+
+```{r race-dist, echo=FALSE}
+youth %>%
+  ggplot(aes(fct_infreq(race)%>%fct_rev())) + geom_bar() + coord_flip() + labs(x = "Victim race")
+```
+
